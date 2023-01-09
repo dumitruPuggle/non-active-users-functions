@@ -1,4 +1,7 @@
 import * as functions from "firebase-functions";
+import { initializeApp } from "firebase-admin/app";
+
+const admin = initializeApp();
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -9,5 +12,8 @@ import * as functions from "firebase-functions";
 // });
 
 export const getNonActiveUsers = functions.https.onRequest(
-  (request, response) => {}
+  (request, response) => {
+    functions.logger.info(admin);
+    response.send("success");
+  }
 );
