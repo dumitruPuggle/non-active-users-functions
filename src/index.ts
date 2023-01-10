@@ -20,20 +20,27 @@ const isDateExpired = (date: string): boolean => {
   return givenDate < thirtyDaysAgo;
 };
 
-export const getNonActiveUsers = functions.https.onRequest(
-  async (request, response) => {
-    try {
-      const { users } = await getAuth().getUsers([
-        { email: "dumitruiurie@gmail.com" },
-      ]);
-      users.forEach((user, index) => {
-        const isUser30DaysOld = isDateExpired(user.metadata.creationTime);
-        response.send(
-          `Email: ${user.email} CreationTime: ${user.metadata.creationTime} isExpired: ${isUser30DaysOld}`
-        );
-      });
-    } catch (e) {
-      // Handle the error
+const fetchInactiveUsers = async function () {
+  const [isInsideCloudFunctions, request, response] = [
+    arguments.length > 0,
+    arguments[0],
+    arguments[1],
+  ];
+  try {
+    const { users } = await getAuth().getUsers([
+      { email: "dumitruiurie@gmail.com" },
+    ]);
+    const verifiedUsersToken: string[] = [];
+    users.forEach((user, index) => {
+      const isUser30DaysOld = isDateExpired(user.metadata.creationTime);
+      console.log(isUser30DaysOld);
+    });
+    if (isInsideCloudFunctions) {
+      response.send(JSON.stringify(verifiedUsersToken));
     }
+  } catch (e) {
+    response.send("An unexpected error has occurred");
   }
-);
+};
+
+export const getNonActiveUsers = functions.https.onRequest(fetchInactiveUsers);
