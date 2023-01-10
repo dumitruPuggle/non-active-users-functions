@@ -4,14 +4,16 @@ import { getFirestore } from "firebase-admin/firestore";
 import { getAuth } from "firebase-admin/auth";
 
 initializeApp();
-getFirestore();
+const db = getFirestore();
 
-const isDateExpired = (date: string): boolean => {
+const isDateExpired = (date: string, daysFromNow: number): boolean => {
   // Get current date
   let today = new Date();
 
-  // Subtract 30 days from current date
-  let thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+  // Subtract days from current date
+  let thirtyDaysAgo = new Date(
+    today.getTime() - daysFromNow * 24 * 60 * 60 * 1000
+  );
 
   // Parse the given date string
   let givenDate = new Date(date);
@@ -20,8 +22,25 @@ const isDateExpired = (date: string): boolean => {
   return givenDate < thirtyDaysAgo;
 };
 
+const getUserReference = async (uid: string) => {
+  return db.collection("UserDetails").doc(uid);
+};
+
+const getUserUpdatedAt = async (uid: string) => {
+  const userRef = await getUserReference(uid);
+  try {
+    const doc = await userRef.get();
+    if (doc.exists) {
+      const data: any = doc.data();
+      const updatedAt = data?.updatedAt;
+      return updatedAt.toDate().toDateString();
+    }
+  } catch (e) {}
+  return null;
+};
+
 const fetchInactiveUsers = async function () {
-  const [isInsideCloudFunctions, request, response] = [
+  const [isInsideCloudFunctions, , response] = [
     arguments.length > 0,
     arguments[0],
     arguments[1],
@@ -31,9 +50,15 @@ const fetchInactiveUsers = async function () {
       { email: "dumitruiurie@gmail.com" },
     ]);
     const verifiedUsersToken: string[] = [];
-    users.forEach((user, index) => {
-      const isUser30DaysOld = isDateExpired(user.metadata.creationTime);
-      console.log(isUser30DaysOld);
+    users.forEach(async (user) => {
+      const userCreatedAt = user.metadata.creationTime;
+      const userUpdatedAt = await getUserUpdatedAt(user.uid);
+
+      const isUser30DaysOld = isDateExpired(userCreatedAt, 30);
+      const isUserInActiveFor90Days = isDateExpired(userUpdatedAt, 90);
+
+      const triggerSecondAttempt = isUser30DaysOld && isUserInActiveFor90Days;
+      console.log(triggerSecondAttempt);
     });
     if (isInsideCloudFunctions) {
       response.send(JSON.stringify(verifiedUsersToken));
