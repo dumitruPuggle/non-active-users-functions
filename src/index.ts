@@ -11,15 +11,12 @@ const isDateExpired = (date: string, daysFromNow: number): boolean => {
   let today = new Date();
 
   // Subtract days from current date
-  let thirtyDaysAgo = new Date(
-    today.getTime() - daysFromNow * 24 * 60 * 60 * 1000
-  );
+  let daysAgo = new Date(today.getTime() - daysFromNow * 24 * 60 * 60 * 1000);
 
   // Parse the given date string
   let givenDate = new Date(date);
 
-  // return if given date is older than 30 days
-  return givenDate < thirtyDaysAgo;
+  return givenDate < daysAgo;
 };
 
 const getUserReference = async (uid: string) => {
@@ -49,7 +46,7 @@ const fetchInactiveUsers = async function () {
     const { users } = await getAuth().getUsers([
       { email: "dumitruiurie@gmail.com" },
     ]);
-    const verifiedUsersToken: string[] = [];
+    const userDeletionQueue: string[] = [];
     users.forEach(async (user) => {
       const userCreatedAt = user.metadata.creationTime;
       const userUpdatedAt = await getUserUpdatedAt(user.uid);
@@ -61,7 +58,7 @@ const fetchInactiveUsers = async function () {
       console.log(triggerSecondAttempt);
     });
     if (isInsideCloudFunctions) {
-      response.send(JSON.stringify(verifiedUsersToken));
+      response.send(JSON.stringify(userDeletionQueue));
     }
   } catch (e) {
     response.send("An unexpected error has occurred");
