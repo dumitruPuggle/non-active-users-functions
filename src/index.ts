@@ -6,6 +6,20 @@ import { getAuth } from "firebase-admin/auth";
 initializeApp();
 getFirestore();
 
+const isDateExpired = (date: string): boolean => {
+  // Get current date
+  let today = new Date();
+
+  // Subtract 30 days from current date
+  let thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+  // Parse the given date string
+  let givenDate = new Date(date);
+
+  // return if given date is older than 30 days
+  return givenDate < thirtyDaysAgo;
+};
+
 export const getNonActiveUsers = functions.https.onRequest(
   async (request, response) => {
     try {
@@ -13,10 +27,10 @@ export const getNonActiveUsers = functions.https.onRequest(
         { email: "dumitruiurie@gmail.com" },
       ]);
       users.forEach((user, index) => {
-        console.log(user);
-        const isUserInactive = user.metadata.creationTime;
-        console.log();
-        response.send(`${user.email} ${user.metadata.creationTime}`);
+        const isUser30DaysOld = isDateExpired(user.metadata.creationTime);
+        response.send(
+          `Email: ${user.email} CreationTime: ${user.metadata.creationTime} isExpired: ${isUser30DaysOld}`
+        );
       });
     } catch (e) {
       // Handle the error
