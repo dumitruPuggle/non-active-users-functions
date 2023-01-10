@@ -22,6 +22,8 @@ export const getNonActiveUsers = functions.https.onRequest(
       ]);
       users.forEach((user, index) => {
         console.log(user);
+        const isUserInactive = user.metadata.creationTime;
+        console.log();
         response.send(`${user.email} ${user.metadata.creationTime}`);
       });
     } catch (e) {

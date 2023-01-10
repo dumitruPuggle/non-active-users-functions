@@ -136,3 +136,43 @@ Issues? Report them at https://github.com/firebase/firebase-tools/issues and att
 [info] i  functions: Finished "getNonActiveUsers" in ~1s {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"Finished \"getNonActiveUsers\" in ~1s"}}
 [debug] [2023-01-10T15:53:12.790Z] [worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: IDLE"}}
 [debug] [2023-01-10T15:53:12.790Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2023-01-10T16:00:27.413Z] File /Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/src/index.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File /Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/src/index.ts changed, reloading triggers"}}
+[debug] [2023-01-10T16:00:28.418Z] [worker-pool] Shutting down IDLE worker (us-central1-getNonActiveUsers) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (us-central1-getNonActiveUsers)"}}
+[debug] [2023-01-10T16:00:28.419Z] [worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: FINISHING {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: FINISHING"}}
+[debug] [2023-01-10T16:00:28.422Z] Validating nodejs source
+[warn] ⚠  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] ⚠  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2023-01-10T16:00:30.353Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "echo ignore lint",
+    "build": "tsc",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^0.2.0",
+    "typescript": "^4.5.4"
+  },
+  "private": false
+}
+[debug] [2023-01-10T16:00:30.353Z] Building nodejs source
+[debug] [2023-01-10T16:00:30.353Z] Analyzing nodejs backend spec
+[debug] [2023-01-10T16:00:30.358Z] [worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: exited {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: exited"}}
+[debug] [2023-01-10T16:00:30.358Z] [worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: FINISHED {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: FINISHED"}}
