@@ -1,0 +1,138 @@
+[debug] [2023-01-10T15:53:06.476Z] ----------------------------------------------------------------------
+[debug] [2023-01-10T15:53:06.478Z] Command:       /usr/local/bin/firebase /Users/dumitrucucu/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase emulators:start --only functions
+[debug] [2023-01-10T15:53:06.478Z] CLI Version:   10.2.2
+[debug] [2023-01-10T15:53:06.478Z] Platform:      darwin
+[debug] [2023-01-10T15:53:06.479Z] Node Version:  v12.18.1
+[debug] [2023-01-10T15:53:06.480Z] Time:          Tue Jan 10 2023 17:53:06 GMT+0200 (Eastern European Standard Time)
+[debug] [2023-01-10T15:53:06.480Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-01-10T15:53:06.545Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-01-10T15:53:06.545Z] > authorizing via signed-in user (dumitruiurie@gmail.com)
+[info] i  emulators: Starting emulators: functions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions"}}
+[debug] [2023-01-10T15:53:06.570Z] [hub] writing locator at /var/folders/kw/w72kjg9d0gsdpxhl0n4rc9100000gn/T/hub-non-active-users-prototype.json
+[warn] ⚠  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, database, hosting, pubsub, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, database, hosting, pubsub, storage\u001b[22m"}}
+[warn] ⚠  Your requested "node" version "16" doesn't match your global version "12". Using node@12 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Your requested \"node\" version \"16\" doesn't match your global version \"12\". Using node@12 from host."}}
+[debug] [2023-01-10T15:53:06.590Z] defaultcredentials: writing to file /Users/dumitrucucu/.config/firebase/dumitruiurie_gmail_com_application_default_credentials.json
+[debug] [2023-01-10T15:53:06.594Z] Setting GAC to /Users/dumitrucucu/.config/firebase/dumitruiurie_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /Users/dumitrucucu/.config/firebase/dumitruiurie_gmail_com_application_default_credentials.json"}}
+[debug] [2023-01-10T15:53:06.598Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/non-active-users-prototype/adminSdkConfig [none]
+[debug] [2023-01-10T15:53:07.046Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/non-active-users-prototype/adminSdkConfig 200
+[debug] [2023-01-10T15:53:07.046Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/non-active-users-prototype/adminSdkConfig {"projectId":"non-active-users-prototype","databaseURL":"https://non-active-users-prototype-default-rtdb.firebaseio.com","storageBucket":"non-active-users-prototype.appspot.com","locationId":"us-central"}
+[warn] ⚠  ui: Emulator UI unable to start on port 4000, starting on 4001 instead. {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI unable to start on port 4000, starting on 4001 instead."}}
+[debug] [2023-01-10T15:53:07.085Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-01-10T15:53:07.085Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2023-01-10T15:53:07.085Z] Starting Emulator UI with command {"binary":"node","args":["/Users/dumitrucucu/.cache/firebase/emulators/ui-v1.6.5/server.bundle.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/dumitrucucu/.cache/firebase/emulators/ui-v1.6.5/server.bundle.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2023-01-10T15:53:07.317Z] Web / API server started at localhost:4001
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at localhost:4001\n"}}
+[info] i  functions: Watching "/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions\" for Cloud Functions..."}}
+[debug] [2023-01-10T15:53:07.380Z] Validating nodejs source
+[warn] ⚠  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] ⚠  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2023-01-10T15:53:09.401Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "echo ignore lint",
+    "build": "tsc",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^0.2.0",
+    "typescript": "^4.5.4"
+  },
+  "private": false
+}
+[debug] [2023-01-10T15:53:09.401Z] Building nodejs source
+[debug] [2023-01-10T15:53:09.401Z] Analyzing nodejs backend spec
+[info] ✔  functions[us-central1-getNonActiveUsers]: http function initialized (http://localhost:5001/non-active-users-prototype/us-central1/getNonActiveUsers). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5001/non-active-users-prototype/us-central1/getNonActiveUsers)."}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://localhost:4001                │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port      │ View in Emulator UI             │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Functions │ localhost:5001 │ http://localhost:4001/functions │
+└───────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at localhost:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2023-01-10T15:53:10.141Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2023-01-10T15:53:10.141Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2023-01-10T15:53:10.141Z] Accepted request GET /non-active-users-prototype/us-central1/getNonActiveUsers --> us-central1-getNonActiveUsers
+[debug] [2023-01-10T15:53:10.149Z] [worker-pool] addWorker(us-central1-getNonActiveUsers) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-getNonActiveUsers)"}}
+[debug] [2023-01-10T15:53:10.149Z] [worker-pool] Adding worker with key us-central1-getNonActiveUsers, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-getNonActiveUsers, total=1"}}
+[debug] [2023-01-10T15:53:10.149Z] [worker-pool] submitWork(triggerId=us-central1-getNonActiveUsers) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitWork(triggerId=us-central1-getNonActiveUsers)"}}
+[debug] [2023-01-10T15:53:10.150Z] [worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: Assigning socketPath: /var/folders/kw/w72kjg9d0gsdpxhl0n4rc9100000gn/T/fire_emu_3471.sock {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: Assigning socketPath: /var/folders/kw/w72kjg9d0gsdpxhl0n4rc9100000gn/T/fire_emu_3471.sock"}}
+[debug] [2023-01-10T15:53:10.150Z] [worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: BUSY"}}
+[debug] [2023-01-10T15:53:11.965Z] [runtime-status] [3471] Functions runtime initialized. {"cwd":"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions","node_version":"12.18.1"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Functions runtime initialized. {\"cwd\":\"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions\",\"node_version\":\"12.18.1\"}"}}
+[debug] [2023-01-10T15:53:11.966Z] [runtime-status] [3471] Disabled runtime features: undefined {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Disabled runtime features: undefined"}}
+[debug] [2023-01-10T15:53:11.968Z] [runtime-status] [3471] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-admin/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-admin/lib/index.js\"}"}}
+[debug] [2023-01-10T15:53:11.969Z] [runtime-status] [3471] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.24.1","resolution":"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-functions/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.24.1\",\"resolution\":\"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-functions/lib/index.js\"}"}}
+[debug] [2023-01-10T15:53:11.970Z] [runtime-status] [3471] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2023-01-10T15:53:11.971Z] [runtime-status] [3471] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.24.1","resolution":"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-functions/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.24.1\",\"resolution\":\"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-functions/lib/index.js\"}"}}
+[debug] [2023-01-10T15:53:12.006Z] [runtime-status] [3471] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Checked functions.config() {\"config\":{}}"}}
+[debug] [2023-01-10T15:53:12.006Z] [runtime-status] [3471] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"3.24.1","resolution":"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-functions/lib/index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"3.24.1\",\"resolution\":\"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-functions/lib/index.js\"}}"}}
+[debug] [2023-01-10T15:53:12.007Z] [runtime-status] [3471] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.24.1","resolution":"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-functions/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.24.1\",\"resolution\":\"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-functions/lib/index.js\"}"}}
+[debug] [2023-01-10T15:53:12.009Z] [runtime-status] [3471] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-admin/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-admin/lib/index.js\"}"}}
+[debug] [2023-01-10T15:53:12.009Z] [runtime-status] [3471] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.24.1","resolution":"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-functions/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.24.1\",\"resolution\":\"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-functions/lib/index.js\"}"}}
+[debug] [2023-01-10T15:53:12.010Z] [runtime-status] [3471] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"10.3.0","resolution":"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-admin/lib/index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"/Users/dumitrucucu/Desktop/clients/Den/non-active-users/functions/node_modules/firebase-admin/lib/index.js\"}}"}}
+[debug] [2023-01-10T15:53:12.123Z] [runtime-status] [3471] Beginning invocation function getNonActiveUsers! {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Beginning invocation function getNonActiveUsers!"}}
+[info] i  functions: Beginning execution of "getNonActiveUsers" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"Beginning execution of \"getNonActiveUsers\""}}
+[debug] [2023-01-10T15:53:12.124Z] [runtime-status] [3471] Running getNonActiveUsers in signature http {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Running getNonActiveUsers in signature http"}}
+[debug] [2023-01-10T15:53:12.127Z] [runtime-status] [3471] Attempting to listen to socketPath: /var/folders/kw/w72kjg9d0gsdpxhl0n4rc9100000gn/T/fire_emu_3471.sock {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Attempting to listen to socketPath: /var/folders/kw/w72kjg9d0gsdpxhl0n4rc9100000gn/T/fire_emu_3471.sock"}}
+[debug] [2023-01-10T15:53:12.130Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2023-01-10T15:53:12.130Z] [functions] Got req.url=/non-active-users-prototype/us-central1/getNonActiveUsers, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/non-active-users-prototype/us-central1/getNonActiveUsers, mapping to path=/"}}
+[debug] [2023-01-10T15:53:12.136Z] [runtime-status] [3471] Ephemeral server handling GET request {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Ephemeral server handling GET request"}}
+[info] >  UserRecord { {"user":"UserRecord {","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m UserRecord {"}}
+[info] >    uid: 'Os3QtMpZRveDqFEwEWZc4R8JSGJ3', {"user":"  uid: 'Os3QtMpZRveDqFEwEWZc4R8JSGJ3',","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   uid: 'Os3QtMpZRveDqFEwEWZc4R8JSGJ3',"}}
+[info] >    email: 'dumitruiurie@gmail.com', {"user":"  email: 'dumitruiurie@gmail.com',","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   email: 'dumitruiurie@gmail.com',"}}
+[info] >    emailVerified: false, {"user":"  emailVerified: false,","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   emailVerified: false,"}}
+[info] >    displayName: undefined, {"user":"  displayName: undefined,","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   displayName: undefined,"}}
+[info] >    photoURL: undefined, {"user":"  photoURL: undefined,","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   photoURL: undefined,"}}
+[info] >    phoneNumber: undefined, {"user":"  phoneNumber: undefined,","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   phoneNumber: undefined,"}}
+[info] >    disabled: false, {"user":"  disabled: false,","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   disabled: false,"}}
+[info] >    metadata: UserMetadata { {"user":"  metadata: UserMetadata {","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   metadata: UserMetadata {"}}
+[info] >      creationTime: 'Mon, 09 Jan 2023 17:39:57 GMT', {"user":"    creationTime: 'Mon, 09 Jan 2023 17:39:57 GMT',","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m     creationTime: 'Mon, 09 Jan 2023 17:39:57 GMT',"}}
+[info] >      lastSignInTime: null, {"user":"    lastSignInTime: null,","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m     lastSignInTime: null,"}}
+[info] >      lastRefreshTime: null {"user":"    lastRefreshTime: null","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m     lastRefreshTime: null"}}
+[info] >    }, {"user":"  },","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   },"}}
+[info] >    providerData: [ {"user":"  providerData: [","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   providerData: ["}}
+[info] >      UserInfo { {"user":"    UserInfo {","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m     UserInfo {"}}
+[info] >        uid: 'dumitruiurie@gmail.com', {"user":"      uid: 'dumitruiurie@gmail.com',","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m       uid: 'dumitruiurie@gmail.com',"}}
+[info] >        displayName: undefined, {"user":"      displayName: undefined,","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m       displayName: undefined,"}}
+[info] >        email: 'dumitruiurie@gmail.com', {"user":"      email: 'dumitruiurie@gmail.com',","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m       email: 'dumitruiurie@gmail.com',"}}
+[info] >        photoURL: undefined, {"user":"      photoURL: undefined,","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m       photoURL: undefined,"}}
+[info] >        providerId: 'password', {"user":"      providerId: 'password',","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m       providerId: 'password',"}}
+[info] >        phoneNumber: undefined {"user":"      phoneNumber: undefined","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m       phoneNumber: undefined"}}
+[info] >      } {"user":"    }","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m     }"}}
+[info] >    ], {"user":"  ],","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   ],"}}
+[info] >    passwordHash: undefined, {"user":"  passwordHash: undefined,","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   passwordHash: undefined,"}}
+[info] >    passwordSalt: undefined, {"user":"  passwordSalt: undefined,","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   passwordSalt: undefined,"}}
+[info] >    tokensValidAfterTime: 'Mon, 09 Jan 2023 17:39:57 GMT', {"user":"  tokensValidAfterTime: 'Mon, 09 Jan 2023 17:39:57 GMT',","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   tokensValidAfterTime: 'Mon, 09 Jan 2023 17:39:57 GMT',"}}
+[info] >    tenantId: undefined {"user":"  tenantId: undefined","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m   tenantId: undefined"}}
+[info] >  } {"user":"}","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"\u001b[90m> \u001b[39m }"}}
+[debug] [2023-01-10T15:53:12.786Z] [runtime-status] [3471] Ephemeral server survived. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"[runtime-status] [3471] Ephemeral server survived."}}
+[info] i  functions: Finished "getNonActiveUsers" in ~1s {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getNonActiveUsers"},"extension":{},"message":"Finished \"getNonActiveUsers\" in ~1s"}}
+[debug] [2023-01-10T15:53:12.790Z] [worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-getNonActiveUsers-3b0091e8-0ca7-4a89-a4f2-8a8b0fb07f55]: IDLE"}}
+[debug] [2023-01-10T15:53:12.790Z] [work-queue] {"queueLength":0,"workRunningCount":0}
