@@ -2,9 +2,11 @@ import * as functions from "firebase-functions";
 import { initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import { getAuth } from "firebase-admin/auth";
+// import { database } from "firebase-admin";
 
 initializeApp();
-const db = getFirestore();
+const firestore_db = getFirestore();
+// const db = database();
 
 const isDateExpired = (date: string, daysFromNow: number): boolean => {
   // Get current date
@@ -20,7 +22,7 @@ const isDateExpired = (date: string, daysFromNow: number): boolean => {
 };
 
 const getUserReference = async (uid: string) => {
-  return db.collection("UserDetails").doc(uid);
+  return firestore_db.collection("UserDetails").doc(uid);
 };
 
 const getUserUpdatedAt = async (uid: string) => {
@@ -36,6 +38,17 @@ const getUserUpdatedAt = async (uid: string) => {
   return null;
 };
 
+// const getScheduledPostReference = () => {
+//   return db.ref("/ScheduledPost/content-projects/selectedProjectId");
+// };
+
+// const getLastAddedPostRTDB = async () => {
+//   const postRef = getScheduledPostReference();
+//   return await postRef.get();
+// };
+const userDeletionQueue = {
+  queue: [],
+};
 const fetchInactiveUsers = async function () {
   const [isInsideCloudFunctions, , response] = [
     arguments.length > 0,
@@ -46,16 +59,19 @@ const fetchInactiveUsers = async function () {
     const { users } = await getAuth().getUsers([
       { email: "dumitruiurie@gmail.com" },
     ]);
-    const userDeletionQueue: string[] = [];
     users.forEach(async (user) => {
       const userCreatedAt = user.metadata.creationTime;
-      const userUpdatedAt = await getUserUpdatedAt(user.uid);
+      const isUser30DaysOld = isDateExpired(userCreatedAt, 1);
 
-      const isUser30DaysOld = isDateExpired(userCreatedAt, 30);
-      const isUserInActiveFor90Days = isDateExpired(userUpdatedAt, 90);
+      if (isUser30DaysOld) {
+        const userUpdatedAt = await getUserUpdatedAt(user.uid);
+        const isUserInactiveFor90Days = isDateExpired(userUpdatedAt, 90);
 
-      const triggerSecondAttempt = isUser30DaysOld && isUserInActiveFor90Days;
-      console.log(triggerSecondAttempt);
+        if (isUserInactiveFor90Days) {
+          // const lastAddedPostOn = await getLastAddedPostRTDB().val();
+        }
+      }
+      console.log(userDeletionQueue);
     });
     if (isInsideCloudFunctions) {
       response.send(JSON.stringify(userDeletionQueue));
