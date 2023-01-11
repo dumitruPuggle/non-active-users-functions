@@ -1,7 +1,8 @@
 import * as functions from "firebase-functions";
 import { initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
-import { getAuth } from "firebase-admin/auth";
+import { getAuth, UserRecord } from "firebase-admin/auth";
+// import { Notification } from "./notifyUser";
 // import { database } from "firebase-admin";
 
 initializeApp();
@@ -9,15 +10,13 @@ const firestore_db = getFirestore();
 // const db = database();
 
 const isDateExpired = (date: string, daysFromNow: number): boolean => {
+  if (!date) return false;
   // Get current date
   let today = new Date();
-
   // Subtract days from current date
   let daysAgo = new Date(today.getTime() - daysFromNow * 24 * 60 * 60 * 1000);
-
   // Parse the given date string
   let givenDate = new Date(date);
-
   return givenDate < daysAgo;
 };
 
@@ -34,7 +33,9 @@ const getUserUpdatedAt = async (uid: string) => {
       const updatedAt = data?.updatedAt;
       return updatedAt.toDate().toDateString();
     }
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
   return null;
 };
 
@@ -46,38 +47,40 @@ const getUserUpdatedAt = async (uid: string) => {
 //   const postRef = getScheduledPostReference();
 //   return await postRef.get();
 // };
-const userDeletionQueue = {
-  queue: [],
-};
 const fetchInactiveUsers = async function () {
-  const [isInsideCloudFunctions, , response] = [
-    arguments.length > 0,
-    arguments[0],
-    arguments[1],
-  ];
+  const isCloudFunctions = arguments.length > 0;
+  const response = arguments[1];
+
   try {
-    const { users } = await getAuth().getUsers([
-      { email: "dumitruiurie@gmail.com" },
-    ]);
-    users.forEach(async (user) => {
+    const usersInstance = await getAuth().listUsers(100);
+    const { users } = usersInstance;
+    // const addUserToQueue = (uid: string) => deletionQueue.push(uid);
+
+    const userScan = async (user: UserRecord) => {
       const userCreatedAt = user.metadata.creationTime;
-      const isUser30DaysOld = isDateExpired(userCreatedAt, 1);
+      const userUpdatedAt = await getUserUpdatedAt(user.uid);
 
-      if (isUser30DaysOld) {
-        const userUpdatedAt = await getUserUpdatedAt(user.uid);
-        const isUserInactiveFor90Days = isDateExpired(userUpdatedAt, 90);
+      const isUser30DaysOld = isDateExpired(userCreatedAt, 30);
+      const isUserInactiveFor90Days = isDateExpired(userUpdatedAt, 90);
 
-        if (isUserInactiveFor90Days) {
-          // const lastAddedPostOn = await getLastAddedPostRTDB().val();
-        }
+      if (isUser30DaysOld && isUserInactiveFor90Days) {
+        const userUid = user.uid;
+        // const lastAddedPostOn = await getLastAddedPostRTDB().val();
+        return userUid;
       }
-      console.log(userDeletionQueue);
-    });
-    if (isInsideCloudFunctions) {
-      response.send(JSON.stringify(userDeletionQueue));
+      return null;
+    };
+
+    const deletionQueue: any[] = await Promise.all(users.map(userScan));
+    const output = {
+      usersDeletionQueue: deletionQueue.filter((user) => user),
+      nextToken: usersInstance?.pageToken,
+    };
+    if (isCloudFunctions) {
+      response.send(JSON.stringify(output, null, 2));
     }
   } catch (e) {
-    response.send("An unexpected error has occurred");
+    // Handle error
   }
 };
 
