@@ -25,7 +25,7 @@ const getUserReference = async (uid: string) => {
   return firestore_db.collection("UserDetails").doc(uid);
 };
 
-const getUserUpdatedAt = async (uid: string) => {
+const getUserUpdatedAtFn = async (uid: string) => {
   const userRef = await getUserReference(uid);
   try {
     const doc = await userRef.get();
@@ -38,6 +38,10 @@ const getUserUpdatedAt = async (uid: string) => {
     console.log(e);
   }
   return null;
+};
+
+export const firestoreFuncObj = {
+  getUserUpdatedAt: getUserUpdatedAtFn,
 };
 
 // const getScheduledPostReference = () => {
@@ -62,7 +66,7 @@ export const fetchInactiveUsers =
 
       const userScan = async (user: UserRecord) => {
         const userCreatedAt = user.metadata.creationTime;
-        const userUpdatedAt = await getUserUpdatedAt(user.uid);
+        const userUpdatedAt = await firestoreFuncObj.getUserUpdatedAt(user.uid);
 
         const isUser30DaysOld = isDateExpired(userCreatedAt, 30);
         const isUserInactiveFor90Days = isDateExpired(userUpdatedAt, 90);

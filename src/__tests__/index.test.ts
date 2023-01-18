@@ -1,68 +1,62 @@
-import * as admin from "firebase-admin";
 import { getAuth } from "firebase-admin/auth";
-import { fetchInactiveUsers } from "../index";
+import { fetchInactiveUsers, firestoreFuncObj } from "../index";
 
 describe("fetchInactiveUsers", () => {
-  beforeAll(() => {
-    var serviceKey = require("./serviceKey.json");
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceKey),
-      databaseURL:
-        "https://non-active-users-prototype-default-rtdb.firebaseio.com",
-    });
-  });
-  it("test", async () => {
+  test("inactive users are correctly queued for deletion", async () => {
     // create mock user data
-    const mockUsers = [
+    const users: any = [
       {
         uid: "CxhX0xvxSsQ0OWBADKat6hyb1Nb2",
         metadata: {
-          creationTime: new Date("2020-01-01T00:00:00.000Z"),
+          creationTime: new Date("2020-01-01T00:00:00.000Z"), // More than 30 days
         },
+        _firestoreCall: {
+          updatedAt: new Date("2021-01-01T00:00:00.000Z"), // More than 90 days
+        },
+        addToDeletionQueue: true,
       },
       {
         uid: "Os3QtMpZRveDqFEwEWZc4R8JSGJ3",
         metadata: {
           creationTime: new Date("2020-03-01T00:00:00.000Z"),
         },
+        _firestoreCall: {
+          updatedAt: new Date("2021-01-01T00:00:00.000Z"),
+        },
+        addToDeletionQueue: true,
       },
       {
         uid: "PVCbIo6EcTha9K2t4v1wDpByE6o2",
         metadata: {
           creationTime: new Date("2020-04-01T00:00:00.000Z"),
         },
+        _firestoreCall: {
+          updatedAt: new Date("2023-01-01T00:00:00.000Z"), // Less than 90 days
+        },
+        addToDeletionQueue: false,
       },
     ];
-    const listUsersStub = jest.spyOn(getAuth(), "listUsers");
 
-    listUsersStub.mockResolvedValue({
-      users: mockUsers as any,
-      pageToken: undefined,
-    });
+    // Mock listUsers function
+    jest
+      .spyOn(getAuth(), "listUsers")
+      .mockImplementation(() => Promise.resolve({ users }));
 
-    const getUserUpdatedAt = jest
-      .spyOn(
-        admin.firestore().doc("UserDetails/PVCbIo6EcTha9K2t4v1wDpByE6o2"),
-        "get"
-      )
-      .mockResolvedValue(() => {
-        return {
-          data: jest.fn().mockImplementation(() => {
-            return {
-              updatedAt: new Date("2020-05-01T00:00:00.000Z"),
-            };
-          }),
-        };
-      });
+    // Mock getUserUpdatedAt firebase call
+    const mapUserUpdatedAt = (uid: string) => {
+      return users.find((user: any) => user.uid === uid)._firestoreCall
+        .updatedAt;
+    };
+    jest
+      .spyOn(firestoreFuncObj, "getUserUpdatedAt")
+      .mockImplementation(mapUserUpdatedAt);
 
-    const result = await fetchInactiveUsers();
-    // check if the correct inactive users were added to the deletion queue
-    expect(result).toEqual({
-      usersDeletionQueue: [],
-      nextToken: undefined,
-    });
-
-    listUsersStub.mockRestore();
-    getUserUpdatedAt.mockRestore();
+    const fnDeletionQueue = ((await fetchInactiveUsers()) as any)
+      .usersDeletionQueue;
+    const actualDeletionQueue = users
+      .filter((user: any) => user.addToDeletionQueue === true)
+      .map((result: any) => result.uid);
+    console.log(fnDeletionQueue, actualDeletionQueue);
+    expect(fnDeletionQueue).toStrictEqual(actualDeletionQueue);
   });
 });
